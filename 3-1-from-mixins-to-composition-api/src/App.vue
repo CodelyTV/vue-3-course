@@ -18,41 +18,45 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, Ref, ref } from "vue";
 import CourseCard from "@/components/CourseCard.vue";
 import CourseInfo from "@/components/CourseInfo.vue";
 import Modal from "@/components/Modal.vue";
-import track from "@/mixins/track.js";
-import courses from "@/services/courses.json";
 import { Course } from "@/types/Course";
+import courses from "@/services/courses.json";
+import { useTracking } from "@/use/tracking";
 
 export default defineComponent({
-  mixins: [track],
   components: {
     CourseCard,
     CourseInfo,
     Modal,
   },
-  data() {
+  setup() {
+    useTracking();
+
+    const isOpen = ref(false);
+    const currentCourse = ref(0);
+
+    const selectedCourse: Ref<Course> = computed(() => {
+      return courses[currentCourse.value];
+    });
+
+    function openCourseModal(index: number) {
+      currentCourse.value = index;
+      isOpen.value = true;
+    }
+    function closeModal() {
+      isOpen.value = false;
+    }
+
     return {
-      isOpen: false,
       courses,
-      currentCourse: 0,
+      isOpen,
+      selectedCourse,
+      openCourseModal,
+      closeModal,
     };
-  },
-  computed: {
-    selectedCourse(): Course {
-      return this.courses[this.currentCourse];
-    },
-  },
-  methods: {
-    openCourseModal(index: number) {
-      this.currentCourse = index;
-      this.isOpen = true;
-    },
-    closeModal() {
-      this.isOpen = false;
-    },
   },
 });
 </script>

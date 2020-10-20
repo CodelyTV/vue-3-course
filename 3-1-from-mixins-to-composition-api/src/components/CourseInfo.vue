@@ -31,31 +31,32 @@
   </section>
 </template>
 
-<script>
-import track from "@/mixins/track.js";
+<script lang="ts">
+import { defineComponent } from "vue";
 import { api } from "@/services/api";
+import { useTracking } from "@/use/tracking";
 
-export default {
+export default defineComponent({
   props: {
     course: {
       type: Object,
       required: true,
     },
   },
-  mixins: [track],
-  data() {
+  setup(props) {
+    const { trackEvent } = useTracking("course-view");
+
+    function handleAdd() {
+      trackEvent("course-add", { course: props.course.slug });
+
+      api.addCourse(props.course.slug);
+    }
+
     return {
-      event: "course-view",
+      handleAdd,
     };
   },
-  methods: {
-    handleAdd() {
-      this.trackEvent("course-add", { course: this.course.slug });
-
-      api.addCourse(this.course.slug);
-    },
-  },
-};
+});
 </script>
 
 <style scoped>
