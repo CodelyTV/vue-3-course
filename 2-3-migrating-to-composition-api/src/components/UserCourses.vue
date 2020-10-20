@@ -3,7 +3,7 @@
     <header><slot /></header>
     <div class="dashboard-courses">
       <CourseCard
-        v-for="course in coursesInProgress"
+        v-for="course in courses"
         :course="course"
         :key="course.slug"
       />
@@ -18,16 +18,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { computed, defineComponent, onMounted, Ref, ref, watch } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 import { api } from "@/services/api";
 import { Course } from "@/types/Course";
 import CourseCard from "@/components/CourseCard.vue";
-
-interface ComponentState {
-  courses: Course[];
-  totalCourses: number;
-}
 
 export default defineComponent({
   props: {
@@ -39,43 +35,42 @@ export default defineComponent({
   components: {
     CourseCard,
   },
-  data(): ComponentState {
-    return {
-      courses: [],
-      totalCourses: 0,
-    };
-  },
-  mounted() {
-    this.getCourses();
-  },
-  watch: {
-    $route() {
-      this.getCourses();
-    },
-  },
-  computed: {
-    ...mapGetters({
-      userId: "userId",
-    }),
-    coursesInProgress(): Course[] {
-      return this.courses.filter(
+  setup(props) {
+    const store = useStore();
+    const route = useRoute();
+
+    const courses: Ref<Course[]> = ref([]);
+    const totalCourses = ref(0);
+
+    const coursesInProgress = computed(() => {
+      return courses.value.filter(
         course => course.progress > 0 && course.progress < 100,
       );
-    },
-    canLoadMore(): boolean {
-      return this.totalCourses > this.courses.length;
-    },
-  },
-  methods: {
-    async getCourses() {
-      const { courses, total } = await api.getUserCourses({
-        id: this.userId,
-        page: this.$route.query.page,
-        perPage: this.perPage,
+    });
+
+    const canLoadMore = computed(() => {
+      return totalCourses.value > courses.value.length;
+    });
+
+    async function getCourses() {
+      const response = await api.getUserCourses({
+        id: store.getters.userId,
+        page: route.query.page,
+        perPage: props.perPage,
       });
-      this.courses = this.courses.concat(courses);
-      this.totalCourses = total;
-    },
+
+      courses.value = courses.value.concat(response.courses);
+      totalCourses.value = response.total;
+    }
+
+    onMounted(getCourses);
+
+    watch(() => route.query, getCourses);
+
+    return {
+      courses: coursesInProgress,
+      canLoadMore,
+    };
   },
 });
 </script>
