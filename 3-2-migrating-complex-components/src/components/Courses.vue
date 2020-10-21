@@ -4,7 +4,7 @@
     <Filters @filter="handleFilter" @search="handleSearch" />
     <div class="courses-collection">
       <CourseCard
-        v-for="course in filteredCourses"
+        v-for="course in courses"
         :key="course.title"
         :course="course"
       />
@@ -13,60 +13,58 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, onMounted, ref, Ref } from "vue";
 import CourseCard from "@/components/CourseCard.vue";
 import Filters from "@/components/Filters.vue";
 import { api } from "@/services/api";
 import { Course } from "@/types/Course.ts";
-
-interface ComponentState {
-  courses: Course[];
-  filters: string[];
-  searchQuery: string;
-}
 
 export default defineComponent({
   components: {
     CourseCard,
     Filters,
   },
-  data(): ComponentState {
-    return {
-      courses: [],
-      filters: [],
-      searchQuery: "",
-    };
-  },
-  async mounted() {
-    this.courses = await api.getCourses();
-  },
-  computed: {
-    filteredCourses(): Course[] {
-      let filteredCourses = this.courses;
-      if (this.searchQuery) {
+  setup() {
+    const courses: Ref<Course[]> = ref([]);
+    const filters: Ref<string[]> = ref([]);
+    const searchQuery: Ref<string> = ref("");
+
+    onMounted(async () => {
+      courses.value = await api.getCourses();
+    });
+
+    const filteredCourses = computed(() => {
+      let filteredCourses = courses.value;
+      if (searchQuery.value) {
         filteredCourses = filteredCourses.filter(course => {
           return course.title
             .toLowerCase()
-            .includes(this.searchQuery.toLowerCase());
+            .includes(searchQuery.value.toLowerCase());
         });
       }
-      if (this.filters.length) {
+      if (filters.value.length) {
         filteredCourses = filteredCourses.filter(course => {
           return course.category.find(category =>
-            this.filters.includes(category),
+            filters.value.includes(category),
           );
         });
       }
       return filteredCourses;
-    },
-  },
-  methods: {
-    handleFilter(filters: string[]) {
-      this.filters = filters;
-    },
-    handleSearch(search: string) {
-      this.searchQuery = search;
-    },
+    });
+
+    function handleFilter(newFilters: string[]) {
+      filters.value = newFilters;
+    }
+
+    function handleSearch(search: string) {
+      searchQuery.value = search;
+    }
+
+    return {
+      courses: filteredCourses,
+      handleFilter,
+      handleSearch,
+    };
   },
 });
 </script>
