@@ -1,8 +1,5 @@
 <template>
-  <header
-    class="header"
-    :style="`--background: ${background}; --color: ${course.color}`"
-  >
+  <header class="header">
     <img :src="course.thumbnail" alt="" />
     <div class="header-info">
       <h1>{{ course.title }}</h1>
@@ -41,7 +38,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped vars="{ background, color: course.color }">
 .header {
   min-height: 20rem;
   margin-bottom: 5rem;
