@@ -3,14 +3,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, inject } from "vue";
 
 export default defineComponent({
-  props: {
-    coursesLength: {
-      type: Number,
-      required: true,
-    },
+  setup() {
+    return {
+      coursesLength: inject("coursesLength"),
+    };
   },
 });
 </script>

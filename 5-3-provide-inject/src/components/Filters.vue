@@ -19,7 +19,6 @@
         </svg>
       </button>
       <FilterControls
-        :courses-length="coursesLength"
         @filter="$emit('filter', $event)"
         @search="$emit('search', $event)"
       />
@@ -50,12 +49,6 @@ import FilterControls from "@/components/FilterControls.vue";
 export default defineComponent({
   components: {
     FilterControls,
-  },
-  props: {
-    coursesLength: {
-      type: Number,
-      required: true,
-    },
   },
   emits: ["filter", "search"],
   data() {

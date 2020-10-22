@@ -1,11 +1,7 @@
 <template>
   <section class="courses">
     <h2 class="courses-title">👌 Cursos disponibles</h2>
-    <Filters
-      @filter="setFilters"
-      @search="setSearchQuery"
-      :courses-length="courses.length"
-    />
+    <Filters @filter="setFilters" @search="setSearchQuery" />
     <div class="courses-collection">
       <CourseCard
         v-for="course in courses"
@@ -17,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, provide } from "vue";
 import CourseCard from "@/components/CourseCard.vue";
 import Filters from "@/components/Filters.vue";
 import { useCourses } from "./useCourses";
@@ -37,6 +33,9 @@ export default defineComponent({
     const filteredCourses = computed(() => {
       return filterByCategory(searchByTitle(courses.value));
     });
+
+    const coursesLength = computed(() => filteredCourses.value.length);
+    provide("coursesLength", coursesLength);
 
     return {
       courses: filteredCourses,

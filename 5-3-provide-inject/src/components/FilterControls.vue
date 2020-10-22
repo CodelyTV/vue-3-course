@@ -2,7 +2,7 @@
   <section class="filter-controls">
     <TagFilters @filter="$emit('filter', $event)" />
     <Search @search="$emit('search', $event)" />
-    <TotalCourses class="filters-result" :coursesLength="coursesLength" />
+    <TotalCourses class="filters-result" />
   </section>
 </template>
 
@@ -17,12 +17,6 @@ export default defineComponent({
     TagFilters,
     Search,
     TotalCourses,
-  },
-  props: {
-    coursesLength: {
-      type: Number,
-      required: true,
-    },
   },
   emits: ["filter", "search"],
 });
