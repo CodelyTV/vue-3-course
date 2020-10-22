@@ -1,12 +1,14 @@
 <template>
-  <div class="modal-backdrop" @click="close">
-    <section class="modal" @click.stop>
-      <button aria-label="Cerrar" class="modal-close" @click="close">
-        &times;
-      </button>
-      <slot />
-    </section>
-  </div>
+  <teleport to="body">
+    <div class="modal-backdrop" @click="close">
+      <section class="modal" @click.stop>
+        <button aria-label="Cerrar" class="modal-close" @click="close">
+          &times;
+        </button>
+        <slot />
+      </section>
+    </div>
+  </teleport>
 </template>
 
 <script>
