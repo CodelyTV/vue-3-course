@@ -21,16 +21,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineAsyncComponent, defineComponent } from "vue";
 import course from "@/data/course-detail.json";
 import Card from "@/components/Card.vue";
-import Chat from "@/components/Chat.vue";
 import { mapGetters } from "vuex";
 
 export default defineComponent({
   components: {
     Card,
-    Chat,
+    Chat: defineAsyncComponent(() => import("./Chat.vue")),
   },
   data() {
     return {
