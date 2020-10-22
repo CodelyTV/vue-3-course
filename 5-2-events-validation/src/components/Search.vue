@@ -22,6 +22,11 @@ export default defineComponent({
       default: "",
     },
   },
+  emits: {
+    "update:query": value => {
+      return typeof value === "string";
+    },
+  },
   methods: {
     handleSearch(ev) {
       this.$emit("update:query", ev.target.value);
