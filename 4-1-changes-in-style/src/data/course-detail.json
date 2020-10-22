@@ -1,0 +1,60 @@
+{
+  "title": "Buenas prácticas con CSS: Layouts",
+  "summary": "Aprende a crear layouts responsive mantenibles y reutilizables con CSS sin desesperarte, cómo evitar los problemas más habituales, y a simplificar tu código reduciendo la necesidad de media queries.",
+  "description": "<p>Cuando trabajamos con CSS tendemos a aplicar estilos demasiado rígidos que nos dificultan crear layouts responsive, aumentando la necesidad de media queries y creando un código complejo, poco reutilizable y difícil de mantener.</p><p>Aunque usemos librerías como Tailwind, Bootstrap o Material, tener unas buenas bases nos ayudará a resolver problemas y detectar si son realmente necesarias para nuestro caso de uso o no.</p><p>En este curso vamos a ver ejemplos reales de layouts responsive usando diferentes métodos y a utilizar patrones que van a simplificar nuestro código, haciéndolo más flexible.</p><h2>Con este curso aprenderás a:</h2><ul>  <li>Crear layouts mantenibles y reutilizables  </li>  <li>Cuándo usar cada tipo de unidad (<code>em</code>, <code>rem</code>, <code>ch</code>, <code>vw</code>…)  </li>  <li>Crear layouts responsive con grid y flex sin necesidad de media queries  </li>  <li>Cuándo usar grid, flex, u otros métodos de layout  </li>  <li>Resolver problemas comunes relacionados con position y z-index  </li></ul>",
+  "thumbnail": "/cursos/css-layouts.jpg",
+  "color": "#2A3E86",
+  "background": "/cursos/css-layouts-bg.png",
+  "authors": ["Núria Soriano", "Rafa Gómez"],
+  "lessons": [
+    {
+      "title": "[GRATIS] 📐 Buenas prácticas con CSS: Layouts",
+      "description": "Analizaremos los errores más habituales que hacen que nuestros layouts sean difíciles de mantener, y como usar las unidades relativas para crear elementos más flexibles y reutilizables",
+      "steps": [
+        { "title": "🧘 5 Errores comunes trabajando con CSS layouts" },
+        { "title": "🎲 Cuándo usar cada tipo de unidad: más allá del píxel" }
+      ]
+    },
+    {
+      "title": "🤔 Maquetar una galería responsive sin media queries: entendiendo Flex y Grid",
+      "description": "Veremos como sacarle partido a flex y grid para crear layouts responsive sin necesidad de media queries, lo que nos simplifica el código y nos permite mayor reutilización de componentes.",
+      "steps": [
+        { "title": "📱 Filtros responsive sin media queries con flex" },
+        { "title": "🌇 Galería responsive sin media queries con grid" }
+      ]
+    },
+    {
+      "title": "👼 Buenas prácticas con flex y grid",
+      "description": "Un gran poder conlleva una gran responsabilidad… veremos problemas potenciales, cómo evitarlos, y cuando es mejor usar flex o grid",
+      "steps": [
+        { "title": "🍱 Grid areas y order" },
+        { "title": "🏹 Cuando usar Flex vs Grid" }
+      ]
+    },
+    {
+      "title": "🎏 Maquetar Modales y Menús: entendiendo Position",
+      "description": "",
+      "steps": [
+        { "title": "🖼 Modal: position relative, absolute y fixed" },
+        { "title": "🍽 Menú: position sticky" },
+        { "title": "🍰 Entendiendo z-index y los stacking contexts" }
+      ]
+    },
+    {
+      "title": "🕴 Más métodos de layout!",
+      "description": "",
+      "steps": [
+        { "title": "✂️ Block formatting contexts: Float sin clearfix!" },
+        { "title": "🏛 Multi-column: efecto masonry CSS-only" }
+      ]
+    },
+    {
+      "title": "🔜 Conclusiones y siguientes pasos",
+      "description": "",
+      "steps": [
+        { "title": "🔮 El futuro de layouts en CSS" },
+        { "title": "✍️ Siguientes pasos" }
+      ]
+    }
+  ]
+}
