@@ -16,7 +16,14 @@
       <a href="#">Ver más cursos de CSS</a>
     </Card>
 
-    <Chat v-if="isLogged" />
+    <Suspense v-if="isLogged">
+      <template #default>
+        <Chat />
+      </template>
+      <template #fallback>
+        <Loader />
+      </template>
+    </Suspense>
   </section>
 </template>
 
@@ -24,11 +31,13 @@
 import { defineAsyncComponent, defineComponent } from "vue";
 import course from "@/data/course-detail.json";
 import Card from "@/components/Card.vue";
+import Loader from "@/components/Loader.vue";
 import { mapGetters } from "vuex";
 
 export default defineComponent({
   components: {
     Card,
+    Loader,
     Chat: defineAsyncComponent(() => import("./Chat.vue")),
   },
   data() {

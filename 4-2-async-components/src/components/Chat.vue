@@ -16,6 +16,16 @@ export default defineComponent({
   components: {
     Card,
   },
+  async setup() {
+    function connect() {
+      return new Promise(resolve => {
+        setTimeout(resolve, 1500);
+      });
+    }
+    await connect();
+
+    return {};
+  },
 });
 </script>
 
