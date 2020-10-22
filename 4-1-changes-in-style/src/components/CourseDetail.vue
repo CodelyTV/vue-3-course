@@ -1,9 +1,7 @@
 <template>
   <header
     class="header"
-    :style="
-      `background-image: ${background}; background-color: ${course.color}`
-    "
+    :style="`--background: ${background}; --color: ${course.color}`"
   >
     <img :src="course.thumbnail" alt="" />
     <div class="header-info">
@@ -53,6 +51,7 @@ export default defineComponent({
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
+  background: var(--color);
   color: #fff;
   font-size: 1.3rem;
 }
@@ -65,9 +64,9 @@ export default defineComponent({
 small {
   opacity: 0.8;
 }
-@media screen and (min-width: 100rem) {
+@media screen and (max-width: 100rem) {
   .header {
-    background-image: none !important;
+    background-image: var(--background);
   }
 }
 </style>
