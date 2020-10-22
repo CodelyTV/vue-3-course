@@ -1,7 +1,7 @@
 <template>
   <section class="courses">
     <h2 class="courses-title">👌 Cursos disponibles</h2>
-    <Search :query="searchQuery" @update:query="searchQuery = $event" />
+    <Search v-model:query="searchQuery" />
     <div class="courses-collection">
       <CourseCard
         v-for="course in courses"
