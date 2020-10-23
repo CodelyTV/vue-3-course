@@ -10,16 +10,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import { defineComponent } from "vue";
 import Card from "@/components/Card.vue";
+import { useUser } from "@/use/user";
 
 export default defineComponent({
   components: {
     Card,
   },
   async setup() {
-    const store = useStore();
+    const { user } = useUser();
 
     function connect() {
       return new Promise(resolve => {
@@ -29,7 +29,7 @@ export default defineComponent({
     await connect();
 
     return {
-      user: computed(() => store.state.user),
+      user,
     };
   },
 });

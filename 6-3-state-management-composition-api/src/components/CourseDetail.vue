@@ -28,11 +28,11 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent } from "vue";
+import { computed, defineAsyncComponent, defineComponent } from "vue";
 import course from "@/data/course-detail.json";
 import Card from "@/components/Card.vue";
 import Loader from "@/components/Loader.vue";
-import { mapGetters } from "vuex";
+import { useUser } from "@/use/user";
 
 export default defineComponent({
   components: {
@@ -40,16 +40,14 @@ export default defineComponent({
     Loader,
     Chat: defineAsyncComponent(() => import("./Chat.vue")),
   },
-  data() {
+  setup() {
+    const { isLogged } = useUser();
+
     return {
       course,
+      isLogged,
+      background: computed(() => `url(${course.background})`),
     };
-  },
-  computed: {
-    ...mapGetters(["isLogged"]),
-    background(): string {
-      return `url(${this.course.background})`;
-    },
   },
 });
 </script>

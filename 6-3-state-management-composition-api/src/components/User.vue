@@ -9,22 +9,18 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import { defineComponent } from "vue";
+import { useUser } from "@/use/user";
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const { user, isLogged, login, logout } = useUser();
 
     return {
-      user: computed(() => store.state.user),
-      isLogged: computed(() => store.getters.isLogged),
-      login() {
-        store.dispatch("login");
-      },
-      logout() {
-        store.dispatch("logout");
-      },
+      user,
+      isLogged,
+      login,
+      logout,
     };
   },
 });
