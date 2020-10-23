@@ -6,13 +6,18 @@ interface User {
   image: string;
 }
 
+export const ProvideUserKey = "USER";
+export const ProvideUserIsLoggedKey = "IS_LOGGED";
+export const ProvideUserLogInKey = "LOG_IN";
+export const ProvideUserLogOutKey = "LOG_OUT";
+
 export default defineComponent({
   setup() {
     const user: Ref<User | null> = ref(null);
     const isLogged = computed(() => !!user.value);
 
-    provide("USER", user);
-    provide("IS_LOGGED", isLogged);
+    provide(ProvideUserKey, readonly(user));
+    provide(ProvideUserIsLoggedKey, isLogged);
 
     function login() {
       return new Promise(resolve => {
@@ -24,6 +29,7 @@ export default defineComponent({
         resolve(user.value);
       });
     }
+
     function logout() {
       return new Promise(resolve => {
         user.value = null;
@@ -31,8 +37,8 @@ export default defineComponent({
       });
     }
 
-    provide("LOG_IN", login);
-    provide("LOG_OUT", logout);
+    provide(ProvideUserLogInKey, login);
+    provide(ProvideUserLogOutKey, logout);
   },
   render() {
     return this.$slots.default?.();

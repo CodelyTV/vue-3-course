@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import { ProvideUserKey } from "@/providers/User";
+import { defineComponent, inject } from "vue";
 import Card from "@/components/Card.vue";
 
 export default defineComponent({
@@ -19,7 +19,7 @@ export default defineComponent({
     Card,
   },
   async setup() {
-    const store = useStore();
+    const user = inject(ProvideUserKey);
 
     function connect() {
       return new Promise(resolve => {
@@ -29,7 +29,7 @@ export default defineComponent({
     await connect();
 
     return {
-      user: computed(() => store.state.user),
+      user,
     };
   },
 });

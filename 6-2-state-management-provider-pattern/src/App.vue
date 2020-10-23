@@ -1,17 +1,21 @@
 <template>
-  <header class="header">
-    <User />
-  </header>
-  <CourseDetail />
+  <ProvideUser>
+    <header class="header">
+      <User />
+    </header>
+    <CourseDetail />
+  </ProvideUser>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import CourseDetail from "@/components/CourseDetail.vue";
 import User from "@/components/User.vue";
+import ProvideUser from "@/providers/User";
 
 export default defineComponent({
   components: {
+    ProvideUser,
     CourseDetail,
     User,
   },

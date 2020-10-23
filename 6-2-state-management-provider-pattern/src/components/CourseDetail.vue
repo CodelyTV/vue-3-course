@@ -16,7 +16,7 @@
       <a href="#">Ver más cursos de CSS</a>
     </Card>
 
-    <Suspense v-if="isLogged">
+    <Suspense v-if="isLogged.value">
       <template #default>
         <Chat />
       </template>
@@ -32,7 +32,7 @@ import { defineAsyncComponent, defineComponent } from "vue";
 import course from "@/data/course-detail.json";
 import Card from "@/components/Card.vue";
 import Loader from "@/components/Loader.vue";
-import { mapGetters } from "vuex";
+import { ProvideUserIsLoggedKey } from "@/providers/User";
 
 export default defineComponent({
   components: {
@@ -45,8 +45,10 @@ export default defineComponent({
       course,
     };
   },
+  inject: {
+    isLogged: ProvideUserIsLoggedKey,
+  },
   computed: {
-    ...mapGetters(["isLogged"]),
     background(): string {
       return `url(${this.course.background})`;
     },

@@ -9,22 +9,26 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
-import { useStore } from "vuex";
+import {
+  ProvideUserIsLoggedKey,
+  ProvideUserKey,
+  ProvideUserLogInKey,
+  ProvideUserLogOutKey,
+} from "@/providers/User";
+import { defineComponent, inject } from "vue";
 
 export default defineComponent({
   setup() {
-    const store = useStore();
+    const user = inject(ProvideUserKey);
+    const isLogged = inject(ProvideUserIsLoggedKey);
+    const login = inject(ProvideUserLogInKey);
+    const logout = inject(ProvideUserLogOutKey);
 
     return {
-      user: computed(() => store.state.user),
-      isLogged: computed(() => store.getters.isLogged),
-      login() {
-        store.dispatch("login");
-      },
-      logout() {
-        store.dispatch("logout");
-      },
+      user,
+      isLogged,
+      login,
+      logout,
     };
   },
 });
